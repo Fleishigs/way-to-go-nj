@@ -1,26 +1,55 @@
 /* ============================
-   WAY TO GO NEW JERSEY
+   WAY TO GO NEW JERSEY — v2
    script.js
    ============================ */
 
 (function () {
   'use strict';
 
-  // ---------- DOM References ----------
-  const nav = document.getElementById('nav');
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  const contactForm = document.getElementById('contactForm');
-  const heroBus = document.getElementById('heroBus');
-  const heroContent = document.getElementById('heroContent');
-  const allNavLinks = navLinks.querySelectorAll('.nav__link');
-  const sections = document.querySelectorAll('section[id]');
-  const reveals = document.querySelectorAll('.reveal');
+  var nav = document.getElementById('nav');
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  var contactForm = document.getElementById('contactForm');
+  var hero = document.querySelector('.hero');
+  var allNavLinks = navLinks.querySelectorAll('.nav__link');
+  var sections = document.querySelectorAll('section[id]');
+  var reveals = document.querySelectorAll('.reveal');
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---------- Reduced Motion Check ----------
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ---------- Hero Animation Orchestration ----------
+     Bus drives across → title wipes in behind it → subtitle/ctas fade in.
+     All controlled via the `.animate` class on .hero which unpauses CSS animations.
+  */
+  function initHero() {
+    if (prefersReducedMotion) {
+      hero.classList.add('animate');
+      return;
+    }
 
-  // ---------- Mobile Nav Toggle ----------
+    // Small delay so page settles, then trigger all hero animations
+    setTimeout(function () {
+      hero.classList.add('animate');
+    }, 400);
+  }
+
+  // Start hero animation once Lottie is ready (or after timeout as fallback)
+  var busLottie = document.getElementById('busLottie');
+  var heroStarted = false;
+
+  function startHero() {
+    if (heroStarted) return;
+    heroStarted = true;
+    initHero();
+  }
+
+  if (busLottie) {
+    busLottie.addEventListener('ready', startHero);
+  }
+
+  // Fallback: start after 2s even if Lottie hasn't loaded
+  setTimeout(startHero, 2000);
+
+  /* ---------- Mobile Nav ---------- */
   function openMobileNav() {
     navLinks.classList.add('open');
     navToggle.classList.add('open');
@@ -36,202 +65,128 @@
   }
 
   navToggle.addEventListener('click', function () {
-    if (navLinks.classList.contains('open')) {
-      closeMobileNav();
-    } else {
-      openMobileNav();
-    }
+    navLinks.classList.contains('open') ? closeMobileNav() : openMobileNav();
   });
 
-  // Close on overlay click
   navLinks.addEventListener('click', function (e) {
     if (e.target === navLinks || e.target.classList.contains('nav__link') || e.target.classList.contains('nav__cta')) {
       closeMobileNav();
     }
   });
 
-  // Close on Escape key
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && navLinks.classList.contains('open')) {
       closeMobileNav();
     }
   });
 
-  // ---------- Sticky Nav on Scroll ----------
+  /* ---------- Sticky Nav ---------- */
   function handleNavScroll() {
-    if (window.scrollY > 50) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
+    nav.classList.toggle('scrolled', window.scrollY > 50);
   }
 
   window.addEventListener('scroll', handleNavScroll, { passive: true });
-  handleNavScroll(); // Check on load
+  handleNavScroll();
 
-  // ---------- Smooth Anchor Scroll ----------
+  /* ---------- Smooth Anchor Scroll ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
-      var targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-
-      var target = document.querySelector(targetId);
+      var id = this.getAttribute('href');
+      if (id === '#') return;
+      var target = document.querySelector(id);
       if (!target) return;
-
       e.preventDefault();
-
-      var navHeight = nav.offsetHeight;
-      var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-
-      window.scrollTo({
-        top: targetPosition,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth'
-      });
+      var offset = target.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight;
+      window.scrollTo({ top: offset, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
     });
   });
 
-  // ---------- Active Nav Link Highlighting ----------
-  var activeLinkObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          var id = entry.target.getAttribute('id');
-          allNavLinks.forEach(function (link) {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + id) {
-              link.classList.add('active');
-            }
-          });
-        }
-      });
-    },
-    {
-      rootMargin: '-20% 0px -60% 0px',
-      threshold: 0
-    }
-  );
-
-  sections.forEach(function (section) {
-    activeLinkObserver.observe(section);
-  });
-
-  // ---------- Scroll Reveal Animations ----------
-  if (!prefersReducedMotion) {
-    var revealObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            // Stagger children if they're cards
-            var parent = entry.target.parentElement;
-            if (parent && parent.classList.contains('services__grid')) {
-              var cards = parent.querySelectorAll('.reveal');
-              cards.forEach(function (card, i) {
-                setTimeout(function () {
-                  card.classList.add('revealed');
-                }, i * 150);
-              });
-            } else if (parent && parent.classList.contains('why-us__grid')) {
-              var items = parent.querySelectorAll('.reveal');
-              items.forEach(function (item, i) {
-                setTimeout(function () {
-                  item.classList.add('revealed');
-                }, i * 120);
-              });
-            } else {
-              entry.target.classList.add('revealed');
-            }
-            revealObserver.unobserve(entry.target);
-          }
+  /* ---------- Active Nav Link ---------- */
+  var activeLinkObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        allNavLinks.forEach(function (link) {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
         });
-      },
-      {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
       }
-    );
+    });
+  }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
 
-    reveals.forEach(function (el) {
-      revealObserver.observe(el);
-    });
+  sections.forEach(function (s) { activeLinkObs.observe(s); });
+
+  /* ---------- Scroll Reveal ---------- */
+  if (!prefersReducedMotion) {
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+
+        var el = entry.target;
+        var parent = el.parentElement;
+
+        // Stagger siblings in grids
+        if (parent && (parent.classList.contains('services__grid') || parent.classList.contains('why-us__grid'))) {
+          var siblings = parent.querySelectorAll('.reveal');
+          siblings.forEach(function (sib, i) {
+            setTimeout(function () { sib.classList.add('revealed'); }, i * 140);
+          });
+        } else {
+          el.classList.add('revealed');
+        }
+
+        revealObs.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(function (el) { revealObs.observe(el); });
   } else {
-    // If reduced motion, show everything immediately
-    reveals.forEach(function (el) {
-      el.classList.add('revealed');
-    });
+    reveals.forEach(function (el) { el.classList.add('revealed'); });
   }
 
-  // ---------- Contact Form Validation ----------
+  /* ---------- Contact Form Validation ---------- */
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
-      var isValid = true;
+      var valid = true;
 
-      // Clear previous errors
-      contactForm.querySelectorAll('.form__error').forEach(function (err) {
-        err.remove();
-      });
-      contactForm.querySelectorAll('.error').forEach(function (input) {
-        input.classList.remove('error');
-      });
+      contactForm.querySelectorAll('.form__error').forEach(function (err) { err.remove(); });
+      contactForm.querySelectorAll('.error').forEach(function (inp) { inp.classList.remove('error'); });
 
-      // Name
       var name = contactForm.querySelector('#name');
-      if (!name.value.trim()) {
-        showError(name, 'Please enter your name.');
-        isValid = false;
-      }
+      if (!name.value.trim()) { showError(name, 'Please enter your name.'); valid = false; }
 
-      // Email
       var email = contactForm.querySelector('#email');
-      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email.value.trim())) {
-        showError(email, 'Please enter a valid email address.');
-        isValid = false;
-      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { showError(email, 'Please enter a valid email.'); valid = false; }
 
-      // Service
       var service = contactForm.querySelector('#service');
-      if (!service.value) {
-        showError(service, 'Please select a service.');
-        isValid = false;
-      }
+      if (!service.value) { showError(service, 'Please select a service.'); valid = false; }
 
-      // Message
       var message = contactForm.querySelector('#message');
-      if (!message.value.trim()) {
-        showError(message, 'Please enter a message.');
-        isValid = false;
-      }
+      if (!message.value.trim()) { showError(message, 'Please enter a message.'); valid = false; }
 
-      if (!isValid) {
+      if (!valid) {
         e.preventDefault();
-        // Focus first error field
-        var firstError = contactForm.querySelector('.error');
-        if (firstError) firstError.focus();
+        var first = contactForm.querySelector('.error');
+        if (first) first.focus();
       }
     });
   }
 
   function showError(input, msg) {
     input.classList.add('error');
-    var errorEl = document.createElement('div');
-    errorEl.className = 'form__error';
-    errorEl.textContent = msg;
-    input.parentElement.appendChild(errorEl);
+    var el = document.createElement('div');
+    el.className = 'form__error';
+    el.textContent = msg;
+    input.parentElement.appendChild(el);
   }
 
-  // Clear error on input
   document.querySelectorAll('.form__input').forEach(function (input) {
-    input.addEventListener('input', function () {
+    function clearErr() {
       this.classList.remove('error');
       var err = this.parentElement.querySelector('.form__error');
       if (err) err.remove();
-    });
-
-    input.addEventListener('change', function () {
-      this.classList.remove('error');
-      var err = this.parentElement.querySelector('.form__error');
-      if (err) err.remove();
-    });
+    }
+    input.addEventListener('input', clearErr);
+    input.addEventListener('change', clearErr);
   });
 
 })();
