@@ -1,192 +1,142 @@
-/* ============================
-   WAY TO GO NEW JERSEY — v2
+/* ================================
+   WAY TO GO NJ — v3
    script.js
-   ============================ */
-
+   ================================ */
 (function () {
   'use strict';
 
-  var nav = document.getElementById('nav');
-  var navToggle = document.getElementById('navToggle');
-  var navLinks = document.getElementById('navLinks');
-  var contactForm = document.getElementById('contactForm');
-  var hero = document.querySelector('.hero');
-  var allNavLinks = navLinks.querySelectorAll('.nav__link');
+  var nav      = document.getElementById('nav');
+  var toggle   = document.getElementById('navToggle');
+  var menu     = document.getElementById('navMenu');
+  var form     = document.getElementById('contactForm');
   var sections = document.querySelectorAll('section[id]');
-  var reveals = document.querySelectorAll('.reveal');
-  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var navLinks = menu.querySelectorAll('.nav__link');
+  var faders   = document.querySelectorAll('.fade-in');
+  var noMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-  /* ---------- Hero Animation Orchestration ----------
-     Bus drives across → title wipes in behind it → subtitle/ctas fade in.
-     All controlled via the `.animate` class on .hero which unpauses CSS animations.
-  */
-  function initHero() {
-    if (prefersReducedMotion) {
-      hero.classList.add('animate');
-      return;
-    }
-
-    // Small delay so page settles, then trigger all hero animations
-    setTimeout(function () {
-      hero.classList.add('animate');
-    }, 400);
-  }
-
-  // Start hero animation once Lottie is ready (or after timeout as fallback)
-  var busLottie = document.getElementById('busLottie');
-  var heroStarted = false;
-
-  function startHero() {
-    if (heroStarted) return;
-    heroStarted = true;
-    initHero();
-  }
-
-  if (busLottie) {
-    busLottie.addEventListener('ready', startHero);
-  }
-
-  // Fallback: start after 2s even if Lottie hasn't loaded
-  setTimeout(startHero, 2000);
-
-  /* ---------- Mobile Nav ---------- */
-  function openMobileNav() {
-    navLinks.classList.add('open');
-    navToggle.classList.add('open');
-    navToggle.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMobileNav() {
-    navLinks.classList.remove('open');
-    navToggle.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  navToggle.addEventListener('click', function () {
-    navLinks.classList.contains('open') ? closeMobileNav() : openMobileNav();
+  /* ---- Mobile Nav ---- */
+  toggle.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    toggle.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
   });
 
-  navLinks.addEventListener('click', function (e) {
-    if (e.target === navLinks || e.target.classList.contains('nav__link') || e.target.classList.contains('nav__cta')) {
-      closeMobileNav();
+  menu.addEventListener('click', function (e) {
+    if (e.target === menu || e.target.closest('.nav__link') || e.target.closest('.btn')) {
+      menu.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     }
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
-      closeMobileNav();
+    if (e.key === 'Escape' && menu.classList.contains('open')) {
+      menu.classList.remove('open');
+      toggle.classList.remove('open');
+      document.body.style.overflow = '';
     }
   });
 
-  /* ---------- Sticky Nav ---------- */
-  function handleNavScroll() {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
+  /* ---- Sticky Nav ---- */
+  function onScroll() {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
   }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  window.addEventListener('scroll', handleNavScroll, { passive: true });
-  handleNavScroll();
-
-  /* ---------- Smooth Anchor Scroll ---------- */
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var id = this.getAttribute('href');
-      if (id === '#') return;
-      var target = document.querySelector(id);
-      if (!target) return;
+  /* ---- Smooth Scroll ---- */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var href = this.getAttribute('href');
+      if (href === '#') return;
+      var el = document.querySelector(href);
+      if (!el) return;
       e.preventDefault();
-      var offset = target.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight;
-      window.scrollTo({ top: offset, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      window.scrollTo({
+        top: el.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight,
+        behavior: noMotion ? 'auto' : 'smooth'
+      });
     });
   });
 
-  /* ---------- Active Nav Link ---------- */
-  var activeLinkObs = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        var id = entry.target.getAttribute('id');
-        allNavLinks.forEach(function (link) {
-          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+  /* ---- Active Link ---- */
+  var linkObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) {
+        var id = en.target.id;
+        navLinks.forEach(function (l) {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
         });
       }
     });
-  }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+  }, { rootMargin: '-25% 0px -55% 0px' });
 
-  sections.forEach(function (s) { activeLinkObs.observe(s); });
+  sections.forEach(function (s) { linkObs.observe(s); });
 
-  /* ---------- Scroll Reveal ---------- */
-  if (!prefersReducedMotion) {
-    var revealObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-
-        var el = entry.target;
-        var parent = el.parentElement;
-
-        // Stagger siblings in grids
-        if (parent && (parent.classList.contains('services__grid') || parent.classList.contains('why-us__grid'))) {
-          var siblings = parent.querySelectorAll('.reveal');
-          siblings.forEach(function (sib, i) {
-            setTimeout(function () { sib.classList.add('revealed'); }, i * 140);
-          });
-        } else {
-          el.classList.add('revealed');
+  /* ---- Fade-in on Scroll ---- */
+  if (!noMotion && faders.length) {
+    var fadeObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('visible');
+          fadeObs.unobserve(en.target);
         }
-
-        revealObs.unobserve(el);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-    reveals.forEach(function (el) { revealObs.observe(el); });
+    faders.forEach(function (el) { fadeObs.observe(el); });
   } else {
-    reveals.forEach(function (el) { el.classList.add('revealed'); });
+    faders.forEach(function (el) { el.classList.add('visible'); });
   }
 
-  /* ---------- Contact Form Validation ---------- */
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-      var valid = true;
+  /* ---- Form Validation ---- */
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      var ok = true;
+      clear();
 
-      contactForm.querySelectorAll('.form__error').forEach(function (err) { err.remove(); });
-      contactForm.querySelectorAll('.error').forEach(function (inp) { inp.classList.remove('error'); });
+      var n = form.querySelector('#name');
+      if (!n.value.trim()) { err(n, 'Enter your name.'); ok = false; }
 
-      var name = contactForm.querySelector('#name');
-      if (!name.value.trim()) { showError(name, 'Please enter your name.'); valid = false; }
+      var em = form.querySelector('#email');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { err(em, 'Enter a valid email.'); ok = false; }
 
-      var email = contactForm.querySelector('#email');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { showError(email, 'Please enter a valid email.'); valid = false; }
+      var sv = form.querySelector('#service');
+      if (!sv.value) { err(sv, 'Select a service.'); ok = false; }
 
-      var service = contactForm.querySelector('#service');
-      if (!service.value) { showError(service, 'Please select a service.'); valid = false; }
+      var msg = form.querySelector('#message');
+      if (!msg.value.trim()) { err(msg, 'Enter a message.'); ok = false; }
 
-      var message = contactForm.querySelector('#message');
-      if (!message.value.trim()) { showError(message, 'Please enter a message.'); valid = false; }
-
-      if (!valid) {
+      if (!ok) {
         e.preventDefault();
-        var first = contactForm.querySelector('.error');
+        var first = form.querySelector('.error');
         if (first) first.focus();
       }
     });
   }
 
-  function showError(input, msg) {
+  function err(input, text) {
     input.classList.add('error');
-    var el = document.createElement('div');
-    el.className = 'form__error';
-    el.textContent = msg;
-    input.parentElement.appendChild(el);
+    var d = document.createElement('div');
+    d.className = 'field__error';
+    d.textContent = text;
+    input.parentElement.appendChild(d);
   }
 
-  document.querySelectorAll('.form__input').forEach(function (input) {
-    function clearErr() {
+  function clear() {
+    form.querySelectorAll('.field__error').forEach(function (e) { e.remove(); });
+    form.querySelectorAll('.error').forEach(function (i) { i.classList.remove('error'); });
+  }
+
+  // Live clear on input
+  document.querySelectorAll('.field input,.field select,.field textarea').forEach(function (inp) {
+    inp.addEventListener('input', function () {
       this.classList.remove('error');
-      var err = this.parentElement.querySelector('.form__error');
-      if (err) err.remove();
-    }
-    input.addEventListener('input', clearErr);
-    input.addEventListener('change', clearErr);
+      var e = this.parentElement.querySelector('.field__error');
+      if (e) e.remove();
+    });
   });
 
 })();
