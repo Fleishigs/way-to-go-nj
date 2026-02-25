@@ -19,16 +19,16 @@
 
   <!-- ====== NAV ====== -->
   <header class="nav" id="nav">
-    <div class="nav__inner container">
+    <div class="nav__wrap container">
       <a href="#hero" class="nav__logo" aria-label="Home">
-        <img src="assets/images/WTGNJ_Signature-01.png" alt="Way To Go New Jersey" width="160" height="44">
+        <img src="assets/images/WTGNJ_logo.png" alt="Way To Go New Jersey" width="120" height="120">
       </a>
       <nav class="nav__menu" id="navMenu" aria-label="Main">
         <a href="#about" class="nav__link">About</a>
         <a href="#services" class="nav__link">Services</a>
         <a href="#why-us" class="nav__link">Why Us</a>
         <a href="#contact" class="nav__link">Contact</a>
-        <a href="#contact" class="btn btn--dark btn--sm">Get a Quote</a>
+        <a href="#contact" class="btn btn--yellow btn--sm">Get a Quote</a>
       </nav>
       <button class="nav__toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -38,17 +38,21 @@
 
   <!-- ====== HERO ====== -->
   <section class="hero" id="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <div class="hero__shape hero__shape--1"></div>
+      <div class="hero__shape hero__shape--2"></div>
+    </div>
     <div class="container hero__grid">
       <div class="hero__content">
-        <p class="hero__eyebrow">School Bus Transportation &mdash; Lakewood, NJ</p>
-        <h1 class="hero__title">Safe Rides,<br>Happy Kids.</h1>
-        <p class="hero__sub">Dependable, professional school bus service your family can trust. Every driver licensed, insured, and background-checked.</p>
-        <div class="hero__actions">
-          <a href="#contact" class="btn btn--dark btn--lg">Get a Free Quote</a>
-          <a href="#services" class="btn btn--ghost btn--lg">Our Services</a>
+        <span class="hero__tag">Lakewood, NJ</span>
+        <h1 class="hero__h1">Safe Rides,<br><span class="hero__h1-accent">Happy Kids.</span></h1>
+        <p class="hero__p">Dependable, professional school bus service your family can trust. Every driver licensed, insured, and background-checked.</p>
+        <div class="hero__btns">
+          <a href="#contact" class="btn btn--yellow btn--lg">Get a Free Quote</a>
+          <a href="#services" class="btn btn--outline btn--lg">Our Services</a>
         </div>
       </div>
-      <div class="hero__visual" aria-hidden="true">
+      <div class="hero__logo-side anim" aria-hidden="true">
         <img src="assets/images/WTGNJ_logo.png" alt="" width="400" height="400">
       </div>
     </div>
@@ -56,21 +60,24 @@
 
   <!-- ====== ABOUT ====== -->
   <section class="about" id="about">
-    <div class="container about__grid">
-      <div class="about__text fade-in">
-        <h2 class="heading-lg">We're your neighbors &mdash; not a faceless corporation.</h2>
-        <p>Way To Go New Jersey is locally owned and operated right here in Lakewood. We built this company because we saw our community needed a bus service that actually cares about every child who climbs aboard.</p>
-        <p>Our drivers aren't just employees &mdash; they're parents, grandparents, and community members who understand the weight of the trust you place in us every morning and afternoon.</p>
+    <div class="container about__layout">
+      <div class="about__left anim">
+        <span class="label">Who We Are</span>
+        <h2 class="h2">A local company that puts <span class="cyan">your children first.</span></h2>
+        <p>Way To Go New Jersey is locally owned and operated right here in Lakewood. We built this company because our community needed a bus service that genuinely cares about every child who climbs aboard.</p>
+        <p>Our drivers aren't just employees — they're parents, grandparents, and community members who understand the trust you place in us every morning and afternoon.</p>
       </div>
-      <div class="about__box fade-in">
-        <h3 class="about__box-title">Our Promise</h3>
-        <ul class="about__list">
-          <li>Locally owned &amp; operated in Lakewood</li>
-          <li>Every driver fully licensed &amp; insured</li>
-          <li>Comprehensive background checks</li>
-          <li>Modern, regularly inspected fleet</li>
-          <li>Consistent, on-time service daily</li>
-        </ul>
+      <div class="about__right anim">
+        <div class="promise-box">
+          <h3 class="promise-box__title">Our Promise</h3>
+          <ul>
+            <li><span class="dot"></span>Locally owned &amp; operated in Lakewood</li>
+            <li><span class="dot"></span>Every driver fully licensed &amp; insured</li>
+            <li><span class="dot"></span>Comprehensive background checks</li>
+            <li><span class="dot"></span>Modern, regularly inspected fleet</li>
+            <li><span class="dot"></span>Consistent, on-time service daily</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -78,26 +85,33 @@
   <!-- ====== SERVICES ====== -->
   <section class="services" id="services">
     <div class="container">
-      <div class="services__header fade-in">
-        <h2 class="heading-lg">What we do.</h2>
-        <p class="services__intro">Three core services, one standard of excellence.</p>
-      </div>
-      <div class="services__grid">
-        <article class="svc fade-in">
-          <span class="svc__num">01</span>
-          <h3 class="svc__title">School Bus Routes</h3>
-          <p>Daily student transportation with consistent, on-time pickups and drop-offs. We work directly with schools to plan routes that run smoothly and safely, every single day.</p>
-        </article>
-        <article class="svc fade-in">
-          <span class="svc__num">02</span>
-          <h3 class="svc__title">Charter &amp; Private Hire</h3>
-          <p>Need a bus for your organization, event, or group outing? We offer flexible charter services built around your schedule, your route, and your budget.</p>
-        </article>
-        <article class="svc fade-in">
-          <span class="svc__num">03</span>
-          <h3 class="svc__title">Field Trips &amp; Camps</h3>
-          <p>From school excursions to summer camp runs, we make group travel easy and stress-free. Comfortable rides to any destination in the region.</p>
-        </article>
+      <span class="label label--center anim">What We Do</span>
+      <h2 class="h2 h2--center anim">Three services, one standard <span class="cyan">of excellence.</span></h2>
+      <div class="cards">
+        <div class="card anim">
+          <div class="card__top">
+            <span class="card__num">01</span>
+            <svg class="card__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="26" height="14" rx="2.5"/><circle cx="9" cy="26" r="3"/><circle cx="23" cy="26" r="3"/><line x1="12" y1="26" x2="20" y2="26"/><rect x="7" y="11" width="5" height="5" rx="1"/><rect x="14" y="11" width="5" height="5" rx="1"/></svg>
+          </div>
+          <h3>School Bus Routes</h3>
+          <p>Daily student transportation with consistent, on-time pickups and drop-offs. We work directly with schools to plan safe, smooth routes.</p>
+        </div>
+        <div class="card anim">
+          <div class="card__top">
+            <span class="card__num">02</span>
+            <svg class="card__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="10" width="20" height="12" rx="2"/><path d="M22 14h5l3 4v4h-6"/><circle cx="9" cy="26" r="3"/><circle cx="25" cy="26" r="3"/><line x1="12" y1="26" x2="22" y2="26"/></svg>
+          </div>
+          <h3>Charter &amp; Private Hire</h3>
+          <p>Flexible charter services for organizations, events, and group outings — built around your schedule, route, and budget.</p>
+        </div>
+        <div class="card anim">
+          <div class="card__top">
+            <span class="card__num">03</span>
+            <svg class="card__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4l2.5 5h5.5l-4.5 3.5 1.7 5.5L16 14.5 10.8 18l1.7-5.5L8 9h5.5z"/><rect x="5" y="18" width="22" height="8" rx="2"/><circle cx="10" cy="28" r="2.5"/><circle cx="22" cy="28" r="2.5"/></svg>
+          </div>
+          <h3>Field Trips &amp; Camps</h3>
+          <p>School excursions and summer camp runs made easy. Comfortable, stress-free rides to any destination in the region.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -105,35 +119,36 @@
   <!-- ====== WHY US ====== -->
   <section class="why" id="why-us">
     <div class="container">
-      <h2 class="heading-lg why__heading fade-in">Why families choose Way&nbsp;To&nbsp;Go.</h2>
+      <span class="label label--center label--light anim">The Difference</span>
+      <h2 class="h2 h2--center h2--light anim">Why families choose <span class="yellow-text">Way&nbsp;To&nbsp;Go.</span></h2>
       <div class="why__grid">
-        <div class="why__item fade-in">
-          <div class="why__icon" aria-hidden="true">
+        <div class="why__card anim">
+          <div class="why__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <h3>Safety First</h3>
-          <p>Every vehicle is regularly inspected and maintained. Our drivers follow strict safety protocols with continuous training.</p>
+          <p>Vehicles regularly inspected. Drivers follow strict protocols with continuous training.</p>
         </div>
-        <div class="why__item fade-in">
-          <div class="why__icon" aria-hidden="true">
+        <div class="why__card anim">
+          <div class="why__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
           <h3>Always On Time</h3>
-          <p>Routes carefully planned so students arrive at school and home right on schedule. Your time matters to us.</p>
+          <p>Routes planned so students arrive at school and home right on schedule, every day.</p>
         </div>
-        <div class="why__item fade-in">
-          <div class="why__icon" aria-hidden="true">
+        <div class="why__card anim">
+          <div class="why__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
           <h3>Local &amp; Trusted</h3>
-          <p>Based right here in Lakewood, we know the community and the roads. We're your neighbors, serving families like yours.</p>
+          <p>Based in Lakewood. We know the community, the roads, and the families we serve.</p>
         </div>
-        <div class="why__item fade-in">
-          <div class="why__icon" aria-hidden="true">
+        <div class="why__card anim">
+          <div class="why__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5a1 1 0 01-1 1h-1"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           </div>
           <h3>Modern Fleet</h3>
-          <p>Clean, comfortable buses equipped with the latest safety features. We invest in our fleet because your children deserve the best.</p>
+          <p>Clean, comfortable buses with the latest safety features. Your children ride in the best.</p>
         </div>
       </div>
     </div>
@@ -142,46 +157,37 @@
   <!-- ====== CONTACT ====== -->
   <section class="contact" id="contact">
     <div class="container">
-      <h2 class="heading-lg contact__heading fade-in">Let's get your route started.</h2>
+      <span class="label label--center anim">Reach Out</span>
+      <h2 class="h2 h2--center anim">Let's get your <span class="cyan">route started.</span></h2>
       <div class="contact__grid">
-        <div class="contact__info fade-in">
-          <p class="contact__blurb">Ready to set up a bus route, book a charter, or just have a question? Reach out &mdash; we'll get back to you promptly.</p>
+        <div class="contact__info anim">
+          <p class="contact__blurb">Ready to set up a bus route, book a charter, or ask a question? We'd love to hear from you.</p>
           <div class="contact__items">
-            <a href="tel:+17326081939" class="contact__item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.86 19.86 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.86 19.86 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.05 12.05 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.05 12.05 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-              <span>(732) 608-1939</span>
+            <a href="tel:+17326081939" class="ci">
+              <span class="ci__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.86 19.86 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.86 19.86 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.05 12.05 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.05 12.05 0 002.81.7A2 2 0 0122 16.92z"/></svg></span>
+              <div><strong>Phone</strong><span>(732) 608-1939</span></div>
             </a>
-            <a href="mailto:info@waytogonj.com" class="contact__item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <span>info@waytogonj.com</span>
+            <a href="mailto:info@waytogonj.com" class="ci">
+              <span class="ci__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+              <div><strong>Email</strong><span>info@waytogonj.com</span></div>
             </a>
-            <div class="contact__item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>P.O.B. 903, Lakewood, NJ 08701</span>
+            <div class="ci">
+              <span class="ci__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <div><strong>Address</strong><span>P.O.B. 903, Lakewood, NJ 08701</span></div>
             </div>
           </div>
         </div>
-        <form class="contact__form fade-in" id="contactForm" action="https://formsubmit.co/info@waytogonj.com" method="POST">
+        <form class="contact__form anim" id="contactForm" action="https://formsubmit.co/info@waytogonj.com" method="POST">
           <input type="hidden" name="_subject" value="New inquiry from Way To Go NJ website">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_next" value="">
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-          <div class="field">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required>
+          <div class="f"><label for="name">Full Name</label><input type="text" id="name" name="name" placeholder="Your name" required></div>
+          <div class="f-row">
+            <div class="f"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="you@example.com" required></div>
+            <div class="f"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" placeholder="(732) 555-0100"></div>
           </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="you@example.com" required>
-            </div>
-            <div class="field">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" placeholder="(732) 555-0100">
-            </div>
-          </div>
-          <div class="field">
-            <label for="service">Service Needed</label>
+          <div class="f"><label for="service">Service Needed</label>
             <select id="service" name="service" required>
               <option value="" disabled selected>Choose one</option>
               <option value="School Bus Routes">School Bus Routes</option>
@@ -190,11 +196,8 @@
               <option value="Other">Other</option>
             </select>
           </div>
-          <div class="field">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Tell us about your transportation needs..." rows="4" required></textarea>
-          </div>
-          <button type="submit" class="btn btn--primary btn--lg btn--full">Send Message</button>
+          <div class="f"><label for="message">Message</label><textarea id="message" name="message" placeholder="Tell us about your needs..." rows="4" required></textarea></div>
+          <button type="submit" class="btn btn--yellow btn--lg btn--full">Send Message</button>
         </form>
       </div>
     </div>
@@ -202,10 +205,10 @@
 
   <!-- ====== HIRING ====== -->
   <section class="hiring" id="hiring">
-    <div class="container hiring__inner fade-in">
+    <div class="container hiring__inner anim">
       <div>
-        <h2 class="hiring__title">We're hiring drivers.</h2>
-        <p class="hiring__text">Join the Way To Go NJ team. We're looking for responsible, friendly drivers who care about getting kids home safely. CDL holders and trainees welcome.</p>
+        <h2 class="hiring__h">We're hiring drivers.</h2>
+        <p class="hiring__p">Join the Way To Go NJ team. Responsible, friendly drivers wanted. CDL holders and trainees welcome.</p>
       </div>
       <a href="mailto:info@waytogonj.com?subject=Driver%20Application%20-%20Way%20To%20Go%20NJ" class="btn btn--dark btn--lg">Apply Now</a>
     </div>
@@ -213,18 +216,15 @@
 
   <!-- ====== FOOTER ====== -->
   <footer class="footer">
+    <div class="footer__bar"></div>
     <div class="container footer__grid">
       <div class="footer__brand">
-        <img src="assets/images/WTGNJ_logo.png" alt="Way To Go New Jersey" width="120" loading="lazy">
+        <img src="assets/images/WTGNJ_logo.png" alt="Way To Go New Jersey" width="100" loading="lazy">
         <p>Safe, reliable school bus transportation for the Lakewood, NJ community.</p>
       </div>
       <div class="footer__col">
         <h4>Navigate</h4>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#why-us">Why Us</a>
-        <a href="#contact">Contact</a>
-        <a href="#hiring">Careers</a>
+        <a href="#about">About</a><a href="#services">Services</a><a href="#why-us">Why Us</a><a href="#contact">Contact</a><a href="#hiring">Careers</a>
       </div>
       <div class="footer__col">
         <h4>Contact</h4>
@@ -235,21 +235,13 @@
       <div class="footer__col">
         <h4>Social</h4>
         <div class="footer__social">
-          <a href="https://www.facebook.com/people/Way-To-Go-Nj/61586106066451/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/waytogonj/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          </a>
-          <a href="https://wa.me/17326081939" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          </a>
+          <a href="https://www.facebook.com/people/Way-To-Go-Nj/61586106066451/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://www.instagram.com/waytogonj/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="https://wa.me/17326081939" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
         </div>
       </div>
     </div>
-    <div class="footer__bottom container">
-      <p>&copy; 2026 Way To Go New Jersey. All rights reserved.</p>
-    </div>
+    <div class="footer__bottom container">&copy; 2026 Way To Go New Jersey. All rights reserved.</div>
   </footer>
 
   <script src="js/script.js"></script>
